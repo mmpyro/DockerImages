@@ -1,12 +1,8 @@
 name: Build
-on:
-  push:
-    branches:
-    - '*.*'
-    tags-ignore:
-    - '*.*'
+on: [push]
 jobs:
   docker:
+    if: github.ref  != ''
     runs-on: ubuntu-latest
     steps:
       - name: Checkout respository code
@@ -22,7 +18,6 @@ jobs:
           tags: |
             type=sha
       - name: Login to DockerHub
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@v1 
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
