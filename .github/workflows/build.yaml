@@ -1,5 +1,8 @@
 name: Build
-on: [push]
+on:
+  push:
+    tags-ignore:
+      - '**'
 jobs:
   docker:
     runs-on: ubuntu-latest
