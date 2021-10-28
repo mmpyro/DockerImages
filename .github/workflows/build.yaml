@@ -13,4 +13,4 @@ jobs:
         with:
           context: .
           push: false
-          tags: mmpyro/alpine-utils:${{GITHUB_SHA}}
+          tags: mmpyro/alpine-utils:${GITHUB_SHA}
