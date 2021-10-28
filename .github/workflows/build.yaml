@@ -2,7 +2,7 @@ name: Build
 on:
   push:
     tags-ignore:
-      - '**'
+    - '*.*'
 jobs:
   docker:
     runs-on: ubuntu-latest
