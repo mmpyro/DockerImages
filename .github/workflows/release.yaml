@@ -14,9 +14,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Retag image
         run: |-
-          echo "SHA ${{GITHUB_SHA}}, TAG: ${{GITHUB_REF}}"
-          docker pull michalmarszalek/alpine-utils:${{GITHUB_SHA}}
-          docker tag michalmarszalek/alpine-utils:${{GITHUB_SHA}} michalmarszalek/alpine-utils:latest
-          docker tag michalmarszalek/alpine-utils:${{GITHUB_SHA}} michalmarszalek/alpine-utils:${{GITHUB_REF}}
+          echo "SHA $GITHUB_SHA, TAG: $GITHUB_REF"
+          docker pull michalmarszalek/alpine-utils:$GITHUB_SHA
+          docker tag michalmarszalek/alpine-utils:$GITHUB_SHA michalmarszalek/alpine-utils:latest
+          docker tag michalmarszalek/alpine-utils:$GITHUB_SHA michalmarszalek/alpine-utils:$GITHUB_REF
           docker push michalmarszalek/alpine-utils:latest
-          docker push michalmarszalek/alpine-utils:${{GITHUB_REF}}
+          docker push michalmarszalek/alpine-utils:$GITHUB_REF
