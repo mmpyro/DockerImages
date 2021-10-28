@@ -1,0 +1,22 @@
+name: Release
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to DockerHub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Retag image
+        run: |-
+          echo "SHA ${{GITHUB_SHA}}, TAG: ${{GITHUB_REF}}"
+          docker pull michalmarszalek/alpine-utils:${{GITHUB_SHA}}
+          docker tag michalmarszalek/alpine-utils:${{GITHUB_SHA}} michalmarszalek/alpine-utils:latest
+          docker tag michalmarszalek/alpine-utils:${{GITHUB_SHA}} michalmarszalek/alpine-utils:${{GITHUB_REF}}
+          docker push michalmarszalek/alpine-utils:latest
+          docker push michalmarszalek/alpine-utils:${{GITHUB_REF}}
