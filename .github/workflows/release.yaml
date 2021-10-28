@@ -17,7 +17,7 @@ jobs:
           echo "SHA $GITHUB_SHA, TAG: $GITHUB_REF"
           REF=$(echo $GITHUB_REF|sed 's/refs\/tags\///g')
           docker pull michalmarszalek/alpine-utils:sha-${GITHUB_SHA:0:7}
-          docker tag michalmarszalek/alpine-utils:${GITHUB_SHA:0:7} michalmarszalek/alpine-utils:latest
-          docker tag michalmarszalek/alpine-utils:${GITHUB_SHA:0:7} michalmarszalek/alpine-utils:$REF
+          docker tag michalmarszalek/alpine-utils:sha-${GITHUB_SHA:0:7} michalmarszalek/alpine-utils:latest
+          docker tag michalmarszalek/alpine-utils:sha-${GITHUB_SHA:0:7} michalmarszalek/alpine-utils:$REF
           docker push michalmarszalek/alpine-utils:latest
           docker push michalmarszalek/alpine-utils:$REF
