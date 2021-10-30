@@ -13,11 +13,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Retag image
+        env:
+          IMAGE_NAME: michalmarszalek/jenkins-worker
         run: |-
           echo "SHA $GITHUB_SHA, TAG: $GITHUB_REF, EVENT: $GITHUB_EVENT_NAME"
           REF=$(echo $GITHUB_REF|sed 's/refs\/tags\///g')
-          docker pull michalmarszalek/alpine-utils:sha-${GITHUB_SHA:0:7}
-          docker tag michalmarszalek/alpine-utils:sha-${GITHUB_SHA:0:7} michalmarszalek/alpine-utils:latest
-          docker tag michalmarszalek/alpine-utils:sha-${GITHUB_SHA:0:7} michalmarszalek/alpine-utils:$REF
-          docker push michalmarszalek/alpine-utils:latest
-          docker push michalmarszalek/alpine-utils:$REF
+          docker pull $IMAGE_NAME:sha-${GITHUB_SHA:0:7}
+          docker tag $IMAGE_NAME:sha-${GITHUB_SHA:0:7} $IMAGE_NAME:latest
+          docker tag $IMAGE_NAME:sha-${GITHUB_SHA:0:7} $IMAGE_NAME:$REF
+          docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$REF

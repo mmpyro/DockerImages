@@ -17,7 +17,7 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            michalmarszalek/alpine-utils
+            michalmarszalek/jenkins-worker
           tags: |
             type=sha
       - name: Login to DockerHub
